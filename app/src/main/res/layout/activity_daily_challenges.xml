@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    tools:context=".DailyChallengesActivity">
+
+    <!-- App Bar with Collapsing Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@drawable/gradient_background"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <!-- Background Gradient -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_background"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
+
+            <!-- Header Content -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:gravity="center"
+                app:layout_collapseMode="parallax">
+
+                <!-- Challenge Hero Icon -->
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circle_background_white"
+                    android:gravity="center"
+                    android:text="🎯"
+                    android:textSize="40sp"
+                    android:layout_marginBottom="16dp"
+                    android:elevation="4dp" />
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily Challenges"
+                    android:textColor="@android:color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Complete challenges to earn points and build streaks!"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:alpha="0.9"
+                    android:gravity="center"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Quick Stats Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <!-- Completed Today -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/headerCompletedCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Completed"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.8" />
+
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@android:color/white"
+                        android:alpha="0.3"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <!-- Points Earned -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/headerPointsEarned"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="75"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Points Today"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.8" />
+
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="@android:color/white"
+                        android:alpha="0.3"
+                        android:layout_marginHorizontal="16dp" />
+
+                    <!-- Streak -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/headerStreakCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Day Streak 🔥"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.8" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Collapsing Toolbar -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back"
+                app:navigationIconTint="@android:color/white">
+
+                <!-- Refresh Button -->
+                <ImageView
+                    android:id="@+id/refreshButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_refresh"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp"
+                    app:tint="@android:color/white"
+                    android:contentDescription="Refresh challenges" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Progress Summary Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Today's Progress"
+                            android:textColor="@color/text_dark"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/challengesStatusText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1/3 Complete"
+                            android:textColor="@color/teal_light"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:background="@drawable/progress_badge_background"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp" />
+
+                    </LinearLayout>
+
+                    <!-- Progress Bar -->
+                    <ProgressBar
+                        android:id="@+id/challengesProgressBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:max="100"
+                        android:progress="33"
+                        android:progressTint="@color/teal_light"
+                        android:progressBackgroundTint="@color/gray_light"
+                        android:background="@drawable/progress_bar_background" />
+
+                    <!-- Stats Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <!-- Points Earned Today -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/stat_item_background"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="⭐"
+                                android:textSize="24sp"
+                                android:layout_marginBottom="4dp" />
+
+                            <TextView
+                                android:id="@+id/pointsEarnedText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="75 pts"
+                                android:textColor="@color/text_dark"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Earned Today"
+                                android:textColor="@color/text_medium"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="1dp" />
+
+                        <!-- Time Remaining -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/stat_item_background"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="⏰"
+                                android:textSize="24sp"
+                                android:layout_marginBottom="4dp" />
+
+                            <TextView
+                                android:id="@+id/timeRemainingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="8h left"
+                                android:textColor="@color/text_dark"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Until Reset"
+                                android:textColor="@color/text_medium"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Available Challenges"
+                    android:textColor="@color/text_dark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/refreshInfoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Refreshes at midnight"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:background="@drawable/info_badge_background"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp" />
+
+            </LinearLayout>
+
+            <!-- Loading State -->
+            <FrameLayout
+                android:id="@+id/loadingContainer"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginVertical="32dp"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/loadingProgressBar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/teal_light" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="80dp"
+                    android:text="Loading challenges..."
+                    android:textColor="@color/text_medium"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <!-- Challenges RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/challengesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                tools:listitem="@layout/item_daily_challenge" />
+
+            <!-- Empty State -->
+            <LinearLayout
+                android:id="@+id/emptyStateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="48dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎯"
+                    android:textSize="72sp"
+                    android:layout_marginBottom="24dp" />
+
+                <TextView
+                    android:id="@+id/emptyStateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No challenges available"
+                    android:textColor="@color/text_dark"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/emptyStateSubtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check back tomorrow for new challenges!"
+                    android:textColor="@color/text_medium"
+                    android:textSize="16sp"
+                    android:gravity="center" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/emptyStateRefreshButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Refresh Challenges"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/teal_light"
+                    app:cornerRadius="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button for Quick Actions -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/quickActionFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="Add Transaction"
+        android:textColor="@android:color/white"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@android:color/white"
+        app:backgroundTint="@color/primary_purple_light"
+        app:behavior_autoHide="true" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

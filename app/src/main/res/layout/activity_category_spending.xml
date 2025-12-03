@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray">
+
+    <!-- Improved Header with consistent design -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        android:paddingStart="16dp"
+        android:paddingTop="48dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/back_button"
+            android:src="@drawable/ic_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📊"
+                android:textSize="18sp"
+                android:layout_marginEnd="6dp" />
+
+            <TextView
+                android:id="@+id/headerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Loading Indicator -->
+    <ProgressBar
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <!-- Compact Filter Row -->
+    <LinearLayout
+        android:id="@+id/filterRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/periodFilter"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_background"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingHorizontal="8dp"
+            android:text="This Month ▼"
+            android:textColor="@color/text_dark"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/sortFilter"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_background"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingHorizontal="8dp"
+            android:text="Amount (High-Low) ▼"
+            android:textColor="@color/text_dark"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Compact Summary Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/summaryCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/filterRow"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Header row with period and total -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📅"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="4dp" />
+
+                    <TextView
+                        android:id="@+id/periodSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="March 2025"
+                        android:textColor="@color/text_dark"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/totalSpentText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total: R0.00"
+                    android:textColor="@color/primary_purple_light"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Category count -->
+            <TextView
+                android:id="@+id/categoryCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0 categories"
+                android:textColor="@color/text_light"
+                android:textSize="13sp"
+                android:gravity="center" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- RecyclerView for Categories with better spacing -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavBar"
+        android:layout_below="@id/summaryCard"
+        android:clipToPadding="false"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp" />
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primary_purple_light"
+        app:itemIconTint="@color/bottom_nav_item_colour"
+        app:itemTextColor="@color/bottom_nav_item_colour"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_navigation_menu" />
+</RelativeLayout>
