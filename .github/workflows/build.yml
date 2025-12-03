@@ -29,11 +29,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Create google-services.json from secret
-      - name: Create google-services.json
-        env:
-          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: printf '%s\n' "$GOOGLE_SERVICES_JSON" > app/google-services.json
+
 
       # Step 3: Set up JDK for Kotlin
       - name: Set up JDK 17
@@ -53,4 +49,6 @@ jobs:
 
       # Step 5: Run tests
       - name: Run tests
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY || 'dummy_api_key_for_ci' }}
         run: ./gradlew test
