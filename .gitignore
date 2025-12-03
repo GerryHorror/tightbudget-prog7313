@@ -20,3 +20,9 @@ local.properties
 
 # Ignore macOS system files
 .DS_Store
+
+# Ignore environment/secrets files
+.env
+.env.local
+!.env.example
+app/google-services.json

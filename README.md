@@ -37,6 +37,18 @@ By incorporating advanced gamification elements, powerful visualisation tools, a
 
 ---
 
+## 🔐 Environment Setup
+
+This project now keeps all Firebase secrets outside of source control.
+
+1. Copy `.env.example` to `.env` and paste your real `FIREBASE_API_KEY`.
+2. Sync or rebuild the project – Gradle reads `.env`, injects the key into `app/google-services.template.json`, and writes the real `app/google-services.json` locally (which remains gitignored).
+3. If you rotate the key, update `.env` and trigger another Gradle sync to regenerate the config file.
+
+> **Note:** `app/google-services.template.json` keeps the non-sensitive Firebase settings so the project stays buildable without sharing your private API keys.
+
+---
+
 ## ✨ What Makes TightBudget Special
 
 ### 👥 User Authentication & Cloud Storage

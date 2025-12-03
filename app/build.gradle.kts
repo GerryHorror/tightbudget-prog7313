@@ -1,9 +1,39 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
     alias(libs.plugins.google.gms.google.services)
+}
+
+// Load secret values from .env and hydrate google-services.json before the build runs.
+val envFile = rootProject.file(".env")
+val envProps = Properties().apply {
+    if (envFile.exists()) {
+        envFile.inputStream().use { load(it) }
+    }
+}
+
+val firebaseApiKey = envProps.getProperty("FIREBASE_API_KEY") ?: System.getenv("FIREBASE_API_KEY")
+val googleServicesTemplate = file("google-services.template.json")
+val googleServicesJson = file("google-services.json")
+
+if (googleServicesTemplate.exists()) {
+    if (firebaseApiKey.isNullOrBlank()) {
+        logger.warn("FIREBASE_API_KEY missing in .env; google-services.json will not be generated.")
+    } else {
+        val generatedContent = googleServicesTemplate
+            .readText()
+            .replace("__FIREBASE_API_KEY__", firebaseApiKey)
+        googleServicesJson.parentFile?.mkdirs()
+        if (!googleServicesJson.exists() || googleServicesJson.readText() != generatedContent) {
+            googleServicesJson.writeText(generatedContent)
+        }
+    }
+} else {
+    logger.warn("google-services.template.json is missing; cannot generate google-services.json.")
 }
 
 android {
