@@ -68,7 +68,7 @@ class GamificationManager {
             if (unlockResult.newlyUnlocked.isNotEmpty()) {
                 val updatedList = currentUnlocked.toMutableList()
                 updatedList.addAll(unlockResult.newlyUnlocked.map { it.id })
-                currentUnlocked = updatedList
+                currentUnlocked = updatedList.distinct()
                 
                 unlockResult.newlyUnlocked.forEach {
                     Log.d(TAG, "🏆 Also unlocked: ${it.title}")
@@ -149,7 +149,7 @@ class GamificationManager {
             if (unlockResult.newlyUnlocked.isNotEmpty()) {
                  val unlockedList = finalUnlocked.toMutableList()
                  unlockedList.addAll(unlockResult.newlyUnlocked.map { it.id })
-                 finalUnlocked = unlockedList
+                 finalUnlocked = unlockedList.distinct()
             }
 
             val finalProgress = intermediateProgress.copy(
