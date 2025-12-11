@@ -30,7 +30,7 @@ import com.example.tightbudget.utils.CategoryConstants
 import com.example.tightbudget.utils.ChartUtils
 import com.example.tightbudget.utils.DashboardHelper
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import com.example.tightbudget.utils.ProgressBarUtils
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -532,10 +532,10 @@ class DashboardActivity : AppCompatActivity() {
         return try {
             // Check if we have loaded categories with their emojis
             loadedCategories.find { it.name.equals(categoryName, ignoreCase = true) }?.emoji
-                ?: EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
+                ?: IconProvider.getCategoryIcon(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         } catch (e: Exception) {
             Log.e(TAG, "Error getting category emoji: ${e.message}")
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
+            IconProvider.getCategoryIcon(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
     }
 
@@ -612,7 +612,7 @@ class DashboardActivity : AppCompatActivity() {
             }
 
             // Get emoji for the category
-            val emoji = EmojiUtils.getCategoryEmoji(categoryName)
+            val emoji = IconProvider.getCategoryIcon(categoryName)
 
             val label = TextView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f)
@@ -752,7 +752,7 @@ class DashboardActivity : AppCompatActivity() {
                 background = DrawableUtils.getCategoryCircle(this@DashboardActivity, categoryName)
             }
 
-            val emoji = EmojiUtils.getCategoryEmoji(categoryName)
+            val emoji = IconProvider.getCategoryIcon(categoryName)
 
             val label = TextView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f)
@@ -1340,7 +1340,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 if (badgeIcon != null && badgeLabel != null) {
                     // Set the emoji for the badge
-                    badgeIcon.text = EmojiUtils.getAchievementEmoji(achievementId)
+                    badgeIcon.text = IconProvider.getAchievementIcon(achievementId)
                     badgeLabel.text = displayName
 
                     // Apply styling

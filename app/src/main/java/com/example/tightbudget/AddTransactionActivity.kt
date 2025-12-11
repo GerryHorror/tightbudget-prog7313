@@ -31,7 +31,7 @@ import com.example.tightbudget.models.Transaction
 import com.example.tightbudget.ui.CategoryPickerBottomSheet
 import com.example.tightbudget.ui.CreateCategoryBottomSheet
 import com.example.tightbudget.utils.CategoryConstants
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -238,18 +238,18 @@ class AddTransactionActivity : AppCompatActivity() {
     private fun setupCategoryChips() {
         binding.foodChip.isChecked = true
 
-        binding.foodChip.text = EmojiUtils.getCategoryEmoji(CategoryConstants.FOOD)
-        binding.transportChip.text = EmojiUtils.getCategoryEmoji(CategoryConstants.TRANSPORT)
+        binding.foodChip.text = IconProvider.getCategoryIcon(CategoryConstants.FOOD)
+        binding.transportChip.text = IconProvider.getCategoryIcon(CategoryConstants.TRANSPORT)
         binding.entertainmentChip.text =
-            EmojiUtils.getCategoryEmoji(CategoryConstants.ENTERTAINMENT)
-        binding.housingChip.text = EmojiUtils.getCategoryEmoji(CategoryConstants.HOUSING)
-        binding.addCategoryChip.text = EmojiUtils.getActionEmoji("add")
+            IconProvider.getCategoryIcon(CategoryConstants.ENTERTAINMENT)
+        binding.housingChip.text = IconProvider.getCategoryIcon(CategoryConstants.HOUSING)
+        binding.addCategoryChip.text = IconProvider.getActionIcon("add")
 
         // Chip click listeners
         binding.foodChip.setOnClickListener {
             selectedCategory = CategoryItem(
                 name = CategoryConstants.FOOD,
-                emoji = EmojiUtils.getCategoryEmoji(CategoryConstants.FOOD),
+                emoji = IconProvider.getCategoryIcon(CategoryConstants.FOOD),
                 color = "#FF9800",
                 budget = 0.0 // Set 0.0 because this is a quick-pick
             )
@@ -258,7 +258,7 @@ class AddTransactionActivity : AppCompatActivity() {
         binding.transportChip.setOnClickListener {
             selectedCategory = CategoryItem(
                 name = CategoryConstants.TRANSPORT,
-                emoji = EmojiUtils.getCategoryEmoji(CategoryConstants.TRANSPORT),
+                emoji = IconProvider.getCategoryIcon(CategoryConstants.TRANSPORT),
                 color = "#2196F3",
                 budget = 0.0
             )
@@ -267,7 +267,7 @@ class AddTransactionActivity : AppCompatActivity() {
         binding.entertainmentChip.setOnClickListener {
             selectedCategory = CategoryItem(
                 name = CategoryConstants.ENTERTAINMENT,
-                emoji = EmojiUtils.getCategoryEmoji(CategoryConstants.ENTERTAINMENT),
+                emoji = IconProvider.getCategoryIcon(CategoryConstants.ENTERTAINMENT),
                 color = "#9C27B0",
                 budget = 0.0
             )
@@ -276,7 +276,7 @@ class AddTransactionActivity : AppCompatActivity() {
         binding.housingChip.setOnClickListener {
             selectedCategory = CategoryItem(
                 name = CategoryConstants.HOUSING,
-                emoji = EmojiUtils.getCategoryEmoji(CategoryConstants.HOUSING),
+                emoji = IconProvider.getCategoryIcon(CategoryConstants.HOUSING),
                 color = "#4CAF50",
                 budget = 0.0
             )
@@ -772,49 +772,49 @@ class AddTransactionActivity : AppCompatActivity() {
         return listOf(
             CategoryItem(
                 name = "Food",
-                emoji = EmojiUtils.getCategoryEmoji("Food"),
+                emoji = IconProvider.getCategoryIcon("Food"),
                 color = "#FF9800",
                 budget = 2500.0
             ),
             CategoryItem(
                 name = "Transport",
-                emoji = EmojiUtils.getCategoryEmoji("Transport"),
+                emoji = IconProvider.getCategoryIcon("Transport"),
                 color = "#2196F3",
                 budget = 1500.0
             ),
             CategoryItem(
                 name = "Entertainment",
-                emoji = EmojiUtils.getCategoryEmoji("Entertainment"),
+                emoji = IconProvider.getCategoryIcon("Entertainment"),
                 color = "#9C27B0",
                 budget = 800.0
             ),
             CategoryItem(
                 name = "Housing",
-                emoji = EmojiUtils.getCategoryEmoji("Housing"),
+                emoji = IconProvider.getCategoryIcon("Housing"),
                 color = "#4CAF50",
                 budget = 6000.0
             ),
             CategoryItem(
                 name = "Utilities",
-                emoji = EmojiUtils.getCategoryEmoji("Utilities"),
+                emoji = IconProvider.getCategoryIcon("Utilities"),
                 color = "#FFC107",
                 budget = 1200.0
             ),
             CategoryItem(
                 name = "Health",
-                emoji = EmojiUtils.getCategoryEmoji("Health"),
+                emoji = IconProvider.getCategoryIcon("Health"),
                 color = "#E91E63",
                 budget = 1000.0
             ),
             CategoryItem(
                 name = "Shopping",
-                emoji = EmojiUtils.getCategoryEmoji("Shopping"),
+                emoji = IconProvider.getCategoryIcon("Shopping"),
                 color = "#00BCD4",
                 budget = 1500.0
             ),
             CategoryItem(
                 name = "Education",
-                emoji = EmojiUtils.getCategoryEmoji("Education"),
+                emoji = IconProvider.getCategoryIcon("Education"),
                 color = "#3F51B5",
                 budget = 2000.0
             )

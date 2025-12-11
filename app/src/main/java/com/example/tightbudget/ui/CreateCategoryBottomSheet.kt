@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.tightbudget.databinding.FragmentCreateCategoryBinding
 import com.example.tightbudget.utils.CategoryConstants
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
@@ -205,7 +205,7 @@ class CreateCategoryBottomSheet : BottomSheetDialogFragment() {
 
         // For each category name, create a TextView with the emoji and set up a click listener
         for (categoryName in categoryNames) {
-            val emoji = EmojiUtils.getCategoryEmoji(categoryName)
+            val emoji = IconProvider.getCategoryIcon(categoryName)
 
             val emojiView = TextView(requireContext()).apply {
                 text = emoji

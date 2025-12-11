@@ -21,7 +21,7 @@ import com.example.tightbudget.models.BudgetGoal
 import com.example.tightbudget.models.CategoryBudget
 import com.example.tightbudget.ui.CategoryDetailBottomSheet
 import com.example.tightbudget.utils.DrawableUtils.getCategoryColor
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -343,7 +343,7 @@ class CategorySpendingActivity : AppCompatActivity() {
                     val item = CategorySpendingItem(
                         id = categoryName,
                         name = categoryName,
-                        emoji = EmojiUtils.getCategoryEmoji(categoryName),
+                        emoji = IconProvider.getCategoryIcon(categoryName),
                         color = getCategoryColor(categoryName), // Helper method
                         amount = spendingAmount,
                         budget = budgetAmount,
@@ -364,7 +364,7 @@ class CategorySpendingActivity : AppCompatActivity() {
                         val item = CategorySpendingItem(
                             id = budget.categoryName,
                             name = budget.categoryName,
-                            emoji = EmojiUtils.getCategoryEmoji(budget.categoryName),
+                            emoji = IconProvider.getCategoryIcon(budget.categoryName),
                             color = getCategoryColor(budget.categoryName),
                             amount = 0.0,
                             budget = budget.allocation,

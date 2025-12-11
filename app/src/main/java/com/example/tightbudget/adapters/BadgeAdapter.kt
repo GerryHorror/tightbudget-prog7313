@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tightbudget.R
 import com.example.tightbudget.models.Badge
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 
 /**
  * Adapter for displaying achievement badges in a grid.
@@ -39,7 +39,7 @@ class BadgeAdapter(
         val badge = badgeList[position]
 
         // Set emoji based on badge name (fallback to locked if unknown)
-        val emoji = EmojiUtils.getAchievementEmoji(badge.name)
+        val emoji = IconProvider.getAchievementIcon(badge.name)
         holder.emoji.text = emoji
 
         // Set circle background colour based on whether badge is earned

@@ -19,7 +19,7 @@ import com.example.tightbudget.firebase.FirebaseDataManager
 import com.example.tightbudget.models.Category
 import com.example.tightbudget.models.Transaction
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
@@ -174,7 +174,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         return if (category != null && category.emoji.isNotBlank()) {
             category.emoji // Use real stored emoji
         } else {
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
+            IconProvider.getCategoryIcon(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
     }
 

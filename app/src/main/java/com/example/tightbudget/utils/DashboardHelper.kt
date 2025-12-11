@@ -29,13 +29,14 @@ object DashboardHelper {
     }
 
     /**
-     * Gets proper emoji for a category name using the EmojiUtils class
+     * Retrieves the appropriate emoji icon for a category name.
+     * This method delegates directly to IconProvider for centralised icon management.
      *
      * @param categoryName Name of the category
      * @return Emoji corresponding to the category
      */
     fun getCategoryEmoji(categoryName: String): String {
-        return EmojiUtils.getCategoryEmoji(categoryName)
+        return IconProvider.getCategoryIcon(categoryName)
     }
 
     /**

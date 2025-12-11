@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tightbudget.R
 import com.example.tightbudget.models.Category
 import com.example.tightbudget.models.Transaction
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -120,7 +120,7 @@ class TransactionAdapter(
         return if (category != null && category.emoji.isNotBlank()) {
             category.emoji // Use real stored emoji
         } else {
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
+            IconProvider.getCategoryIcon(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
     }
 }
