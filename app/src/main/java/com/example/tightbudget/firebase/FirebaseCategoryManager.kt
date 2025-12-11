@@ -177,71 +177,39 @@ class FirebaseCategoryManager {
     }
 
     /**
-     * Get default categories for seeding new users
+     * Retrieves the default categories for seeding new users.
+     * This method uses IconProvider to ensure consistent emoji icons
+     * across the application, eliminating hardcoded emoji definitions.
+     *
+     * @return List of Category objects with predefined values and budgets
      */
     private fun getDefaultCategories(): List<Category> {
-        return listOf(
-            Category(
-                name = "Food",
-                emoji = "🍔",
-                color = "#FF9800",
-                budget = 2500.0
-            ),
-            Category(
-                name = "Housing",
-                emoji = "🏠",
-                color = "#4CAF50",
-                budget = 6000.0
-            ),
-            Category(
-                name = "Transport",
-                emoji = "🚗",
-                color = "#2196F3",
-                budget = 1500.0
-            ),
-            Category(
-                name = "Entertainment",
-                emoji = "🎬",
-                color = "#9C27B0",
-                budget = 800.0
-            ),
-            Category(
-                name = "Utilities",
-                emoji = "⚡",
-                color = "#FFC107",
-                budget = 1200.0
-            ),
-            Category(
-                name = "Health",
-                emoji = "⚕️",
-                color = "#E91E63",
-                budget = 1000.0
-            ),
-            Category(
-                name = "Shopping",
-                emoji = "🛍️",
-                color = "#00BCD4",
-                budget = 1500.0
-            ),
-            Category(
-                name = "Education",
-                emoji = "📚",
-                color = "#3F51B5",
-                budget = 2000.0
-            ),
-            Category(
-                name = "Groceries",
-                emoji = "🛒",
-                color = "#8BC34A",
-                budget = 1800.0
-            ),
-            Category(
-                name = "Fitness",
-                emoji = "💪",
-                color = "#FF5722",
-                budget = 500.0
-            )
+        // Retrieve centralised category definitions from IconProvider
+        val defaultCategoryData = com.example.tightbudget.utils.IconProvider.getDefaultCategories()
+
+        // Define default budget amounts for each category
+        val budgetMap = mapOf(
+            "Food" to 2500.0,
+            "Housing" to 6000.0,
+            "Transport" to 1500.0,
+            "Entertainment" to 800.0,
+            "Utilities" to 1200.0,
+            "Health" to 1000.0,
+            "Shopping" to 1500.0,
+            "Education" to 2000.0,
+            "Groceries" to 1800.0,
+            "Fitness" to 500.0
         )
+
+        // Build Category objects using centralised icon definitions
+        return defaultCategoryData.map { (name, emoji, colour) ->
+            Category(
+                name = name,
+                emoji = emoji,
+                color = colour,
+                budget = budgetMap[name] ?: 1000.0
+            )
+        }
     }
 
     /**

@@ -23,7 +23,7 @@ import com.example.tightbudget.models.BudgetGoal
 import com.example.tightbudget.models.CategoryBudget
 import com.example.tightbudget.ui.CategoryBudgetItem
 import com.example.tightbudget.ui.CreateCategoryBottomSheet
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -215,7 +215,7 @@ class BudgetGoalsActivity : AppCompatActivity() {
             categoryItems.add(
                 CategoryBudgetItem(
                     categoryName = categoryName,
-                    emoji = EmojiUtils.getCategoryEmoji(categoryName),
+                    emoji = IconProvider.getCategoryIcon(categoryName),
                     color = getCategoryColor(categoryName),
                     allocation = perFallbackCat
                 )
@@ -482,7 +482,7 @@ class BudgetGoalsActivity : AppCompatActivity() {
                         categoryItems.add(
                             CategoryBudgetItem(
                                 categoryName = categoryBudget.categoryName,
-                                emoji = EmojiUtils.getCategoryEmoji(categoryBudget.categoryName),
+                                emoji = IconProvider.getCategoryIcon(categoryBudget.categoryName),
                                 color = getCategoryColor(categoryBudget.categoryName),
                                 allocation = categoryBudget.allocation,
                                 id = 0

@@ -17,7 +17,7 @@ import com.example.tightbudget.firebase.FirebaseDataManager
 import com.example.tightbudget.firebase.GamificationManager
 import com.example.tightbudget.utils.ChartUtils
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import kotlinx.coroutines.launch
 
 /**

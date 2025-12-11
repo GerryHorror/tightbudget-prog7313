@@ -6,7 +6,7 @@ import com.example.tightbudget.firebase.FirebaseDataManager
 import com.example.tightbudget.firebase.FirebaseCategoryManager
 import com.example.tightbudget.models.CategoryBudget
 import com.example.tightbudget.ui.CategoryBudgetItem
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
@@ -46,7 +46,7 @@ class CategoryAllocationManager {
                 val results = categoryBudgets.map { categoryBudget ->
                     CategoryBudgetItem(
                         categoryName = categoryBudget.categoryName,
-                        emoji = EmojiUtils.getCategoryEmoji(categoryBudget.categoryName),
+                        emoji = IconProvider.getCategoryIcon(categoryBudget.categoryName),
                         color = getCategoryColor(categoryBudget.categoryName),
                         allocation = categoryBudget.allocation,
                         id = categoryBudget.id
@@ -198,14 +198,14 @@ class CategoryAllocationManager {
      */
     private fun getPredefinedCategories(): List<CategoryData> {
         return listOf(
-            CategoryData("Housing", EmojiUtils.getCategoryEmoji("Housing"), "#4CAF50", true),
-            CategoryData("Groceries", EmojiUtils.getCategoryEmoji("Groceries"), "#FF9800", true),
-            CategoryData("Utilities", EmojiUtils.getCategoryEmoji("Utilities"), "#FFC107", true),
-            CategoryData("Transport", EmojiUtils.getCategoryEmoji("Transport"), "#2196F3", true),
-            CategoryData("Entertainment", EmojiUtils.getCategoryEmoji("Entertainment"), "#9C27B0", false),
-            CategoryData("Health", EmojiUtils.getCategoryEmoji("Health"), "#E91E63", false),
-            CategoryData("Shopping", EmojiUtils.getCategoryEmoji("Shopping"), "#00BCD4", false),
-            CategoryData("Education", EmojiUtils.getCategoryEmoji("Education"), "#3F51B5", false)
+            CategoryData("Housing", IconProvider.getCategoryIcon("Housing"), "#4CAF50", true),
+            CategoryData("Groceries", IconProvider.getCategoryIcon("Groceries"), "#FF9800", true),
+            CategoryData("Utilities", IconProvider.getCategoryIcon("Utilities"), "#FFC107", true),
+            CategoryData("Transport", IconProvider.getCategoryIcon("Transport"), "#2196F3", true),
+            CategoryData("Entertainment", IconProvider.getCategoryIcon("Entertainment"), "#9C27B0", false),
+            CategoryData("Health", IconProvider.getCategoryIcon("Health"), "#E91E63", false),
+            CategoryData("Shopping", IconProvider.getCategoryIcon("Shopping"), "#00BCD4", false),
+            CategoryData("Education", IconProvider.getCategoryIcon("Education"), "#3F51B5", false)
         )
     }
 

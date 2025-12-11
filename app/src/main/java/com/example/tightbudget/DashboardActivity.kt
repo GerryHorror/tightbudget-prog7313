@@ -30,7 +30,7 @@ import com.example.tightbudget.utils.CategoryConstants
 import com.example.tightbudget.utils.ChartUtils
 import com.example.tightbudget.utils.DashboardHelper
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import com.example.tightbudget.utils.ProgressBarUtils
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -521,17 +521,21 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     /**
-     * Get category emoji from Firebase data or fallback to EmojiUtils
-     * This method gets the real emoji from stored categories
+     * Retrieves the category emoji from Firebase data or falls back to centralised IconProvider.
+     * This method first attempts to use the emoji stored in Firebase for the category,
+     * and falls back to IconProvider's centralised emoji definitions if not found.
+     *
+     * @param categoryName The name of the category
+     * @return The emoji string for the category
      */
     private fun getCategoryEmojiFromFirebase(categoryName: String): String {
         return try {
             // Check if we have loaded categories with their emojis
             loadedCategories.find { it.name.equals(categoryName, ignoreCase = true) }?.emoji
-                ?: EmojiUtils.getCategoryEmoji(categoryName) // Fallback to hardcoded mapping
+                ?: IconProvider.getCategoryIcon(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         } catch (e: Exception) {
             Log.e(TAG, "Error getting category emoji: ${e.message}")
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback
+            IconProvider.getCategoryIcon(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
     }
 
@@ -608,7 +612,7 @@ class DashboardActivity : AppCompatActivity() {
             }
 
             // Get emoji for the category
-            val emoji = EmojiUtils.getCategoryEmoji(categoryName)
+            val emoji = IconProvider.getCategoryIcon(categoryName)
 
             val label = TextView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f)
@@ -748,7 +752,7 @@ class DashboardActivity : AppCompatActivity() {
                 background = DrawableUtils.getCategoryCircle(this@DashboardActivity, categoryName)
             }
 
-            val emoji = EmojiUtils.getCategoryEmoji(categoryName)
+            val emoji = IconProvider.getCategoryIcon(categoryName)
 
             val label = TextView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f)
@@ -1336,7 +1340,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 if (badgeIcon != null && badgeLabel != null) {
                     // Set the emoji for the badge
-                    badgeIcon.text = EmojiUtils.getAchievementEmoji(achievementId)
+                    badgeIcon.text = IconProvider.getAchievementIcon(achievementId)
                     badgeLabel.text = displayName
 
                     // Apply styling

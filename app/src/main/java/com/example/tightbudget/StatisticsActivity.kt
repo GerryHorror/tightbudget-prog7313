@@ -20,7 +20,7 @@ import com.example.tightbudget.models.BudgetGoal
 import com.example.tightbudget.models.CategoryBudget
 import com.example.tightbudget.utils.ChartUtils
 import com.example.tightbudget.utils.DrawableUtils
-import com.example.tightbudget.utils.EmojiUtils
+import com.example.tightbudget.utils.IconProvider
 import com.example.tightbudget.utils.ProgressBarUtils
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
@@ -228,7 +228,7 @@ class StatisticsActivity : AppCompatActivity() {
                 // Create category data list for charts
                 categoryDataList = categorySpending.map { (categoryName, amount) ->
                     // Get emoji for category
-                    val emoji = EmojiUtils.getCategoryEmoji(categoryName)
+                    val emoji = IconProvider.getCategoryIcon(categoryName)
 
                     // Get color for category
                     val color = getCategoryColor(categoryName)
@@ -308,7 +308,7 @@ class StatisticsActivity : AppCompatActivity() {
                 amount = amount,
                 budgetLimit = amount * 1.2f, // 20% higher budget
                 color = getCategoryColor(categoryName),
-                emoji = EmojiUtils.getCategoryEmoji(categoryName)
+                emoji = IconProvider.getCategoryIcon(categoryName)
             )
         }.sortedByDescending { it.amount }
 
