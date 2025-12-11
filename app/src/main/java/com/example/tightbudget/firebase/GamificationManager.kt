@@ -98,9 +98,21 @@ class GamificationManager {
      * Handles transaction addition and awards appropriate points
      */
     /**
-     * Handles transaction addition and awards appropriate points in a single update
+     * Result data class containing both points earned and newly unlocked achievements.
+     *
+     * @property pointsEarned Total points awarded from this transaction.
+     * @property newlyUnlockedAchievements List of achievements that were just unlocked.
      */
-    suspend fun onTransactionAdded(userId: Int, transaction: Transaction): Int {
+    data class TransactionGamificationResult(
+        val pointsEarned: Int,
+        val newlyUnlockedAchievements: List<Achievement>
+    )
+
+    /**
+     * Handles transaction addition and awards appropriate points in a single update.
+     * Returns both points earned and any newly unlocked achievements for UI display.
+     */
+    suspend fun onTransactionAdded(userId: Int, transaction: Transaction): TransactionGamificationResult {
         return try {
             Log.d(TAG, "=== TRANSACTION GAMIFICATION START ===")
             
@@ -168,11 +180,17 @@ class GamificationManager {
 
             Log.d(TAG, "=== TRANSACTION GAMIFICATION END ===")
             Log.d(TAG, "Total points earned: $pendingPoints")
-            
-            pendingPoints
+
+            TransactionGamificationResult(
+                pointsEarned = pendingPoints,
+                newlyUnlockedAchievements = unlockResult.newlyUnlocked
+            )
         } catch (e: Exception) {
             Log.e(TAG, "❌ Error processing transaction gamification: ${e.message}", e)
-            0
+            TransactionGamificationResult(
+                pointsEarned = 0,
+                newlyUnlockedAchievements = emptyList()
+            )
         }
     }
 

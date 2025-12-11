@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Achievement Unlock Celebration Dialog
+
+    A visually striking full-screen dialog displayed when a user unlocks an achievement.
+    Features include:
+    - Gradient background with celebratory colours
+    - Large animated emoji icon
+    - Achievement title and description
+    - Points reward badge with glow effect
+    - Animated confetti overlay
+    - Celebratory message and continue button
+
+    Author: TightBudget Development Team
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/achievement_celebration_background">
+
+    <!-- Confetti Animation Overlay Container -->
+    <FrameLayout
+        android:id="@+id/confettiContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp" />
+
+    <!-- Main Content Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="16dp"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/achievement_unlock_card_background"
+            android:padding="32dp">
+
+            <!-- Celebration Header -->
+            <TextView
+                android:id="@+id/celebrationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Achievement Unlocked!"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Sparkle Icon (Left) -->
+            <TextView
+                android:id="@+id/sparkleLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✨"
+                android:textSize="24sp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/celebrationTitle"
+                app:layout_constraintEnd_toStartOf="@id/celebrationTitle"
+                app:layout_constraintTop_toTopOf="@id/celebrationTitle" />
+
+            <!-- Sparkle Icon (Right) -->
+            <TextView
+                android:id="@+id/sparkleRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✨"
+                android:textSize="24sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/celebrationTitle"
+                app:layout_constraintStart_toEndOf="@id/celebrationTitle"
+                app:layout_constraintTop_toTopOf="@id/celebrationTitle" />
+
+            <!-- Achievement Icon Container -->
+            <FrameLayout
+                android:id="@+id/iconContainer"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/celebrationTitle">
+
+                <!-- Pulsing Glow Background -->
+                <View
+                    android:id="@+id/glowBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/achievement_glow_circle"
+                    android:elevation="2dp" />
+
+                <!-- Achievement Emoji Icon -->
+                <TextView
+                    android:id="@+id/achievementEmoji"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="64sp"
+                    android:elevation="4dp"
+                    tools:text="🏆" />
+
+            </FrameLayout>
+
+            <!-- Achievement Title -->
+            <TextView
+                android:id="@+id/achievementTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iconContainer"
+                tools:text="Budget Master" />
+
+            <!-- Achievement Description -->
+            <TextView
+                android:id="@+id/achievementDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                android:alpha="0.8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/achievementTitle"
+                tools:text="Add 50 transactions to your budget" />
+
+            <!-- Divider -->
+            <View
+                android:id="@+id/divider"
+                android:layout_width="60dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/achievement_divider_gradient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/achievementDescription" />
+
+            <!-- Points Reward Section -->
+            <LinearLayout
+                android:id="@+id/rewardSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider">
+
+                <!-- Trophy Icon -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎁"
+                    android:textSize="24sp"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Points Text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bonus Reward:"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif" />
+
+                <!-- Points Badge -->
+                <TextView
+                    android:id="@+id/pointsReward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/points_reward_badge"
+                    android:paddingStart="16dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    tools:text="+300 pts" />
+
+            </LinearLayout>
+
+            <!-- Congratulations Message -->
+            <TextView
+                android:id="@+id/congratsMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="Well done! Keep up the excellent work on your financial journey! 🎉"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rewardSection" />
+
+            <!-- Continue Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/continueButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="28dp"
+                android:text="Continue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                app:cornerRadius="28dp"
+                app:backgroundTint="@color/teal_light"
+                app:icon="@android:drawable/ic_media_play"
+                app:iconGravity="end"
+                app:iconTint="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/congratsMessage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

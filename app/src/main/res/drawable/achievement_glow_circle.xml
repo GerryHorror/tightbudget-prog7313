@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Achievement Glow Circle
+    Pulsing radial gradient for icon glow effect
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="60dp"
+        android:startColor="#40FFD700"
+        android:centerColor="#20FFD700"
+        android:endColor="#00FFD700" />
+</shape>

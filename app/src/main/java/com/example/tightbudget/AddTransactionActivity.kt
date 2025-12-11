@@ -26,9 +26,11 @@ import com.example.tightbudget.firebase.FirebaseStorageManager
 import com.example.tightbudget.firebase.FirebaseTransactionManager
 import com.example.tightbudget.firebase.GamificationManager
 import com.example.tightbudget.firebase.RecurringTransactionManager
+import com.example.tightbudget.models.Achievement
 import com.example.tightbudget.models.CategoryItem
 import com.example.tightbudget.models.Transaction
 import com.example.tightbudget.ui.CategoryPickerBottomSheet
+import com.example.tightbudget.utils.AchievementCelebrationHelper
 import com.example.tightbudget.ui.CreateCategoryBottomSheet
 import com.example.tightbudget.utils.CategoryConstants
 import com.example.tightbudget.utils.IconProvider
@@ -613,11 +615,12 @@ class AddTransactionActivity : AppCompatActivity() {
 
                 // Gamification logic for points earned
                 val gamificationManager = GamificationManager.getInstance()
-                val pointsEarned = gamificationManager.onTransactionAdded(userId, savedTransaction)
+                val gamificationResult = gamificationManager.onTransactionAdded(userId, savedTransaction)
 
                 Log.d(TAG, "Transaction saved to Firebase with ID: ${savedTransaction.id}")
                 Log.d(TAG, "Receipt URL: ${savedTransaction.receiptPath}")
-                Log.d(TAG, "Points earned from gamification: $pointsEarned")
+                Log.d(TAG, "Points earned from gamification: ${gamificationResult.pointsEarned}")
+                Log.d(TAG, "Achievements unlocked: ${gamificationResult.newlyUnlockedAchievements.size}")
                 Log.d(TAG, "Recurring: $isRecurring")
 
                 runOnUiThread {
@@ -625,31 +628,37 @@ class AddTransactionActivity : AppCompatActivity() {
                     binding.saveTransactionButton.isEnabled = true
                     binding.saveTransactionButton.text = "SAVE TRANSACTION"
 
-                    // Show success message with points and upload info
-                    val message = buildString {
-                        append("Transaction saved!")
-                        if (pointsEarned > 0) {
-                            append("\n🎉 +$pointsEarned points earned!")
-                        }
-                        if (receiptImageUrl != null) {
-                            if (receiptImageUrl.startsWith("https://")) {
-                                append("\n📸 Receipt uploaded to cloud!")
-                            } else {
-                                append("\n📸 Receipt saved locally!")
+                    // Check if any achievements were unlocked
+                    if (gamificationResult.newlyUnlockedAchievements.isNotEmpty()) {
+                        // Show celebration for the first achievement
+                        showAchievementCelebrations(gamificationResult.newlyUnlockedAchievements)
+                    } else {
+                        // Show regular success message with points and upload info
+                        val message = buildString {
+                            append("Transaction saved!")
+                            if (gamificationResult.pointsEarned > 0) {
+                                append("\n🎉 +${gamificationResult.pointsEarned} points earned!")
+                            }
+                            if (receiptImageUrl != null) {
+                                if (receiptImageUrl.startsWith("https://")) {
+                                    append("\n📸 Receipt uploaded to cloud!")
+                                } else {
+                                    append("\n📸 Receipt saved locally!")
+                                }
+                            }
+                            if (isRecurring) {
+                                append("\n🔄 Recurring transaction set up!")
                             }
                         }
-                        if (isRecurring) {
-                            append("\n🔄 Recurring transaction set up!")
-                        }
+
+                        Toast.makeText(this@AddTransactionActivity, message, Toast.LENGTH_LONG).show()
+
+                        // Return to dashboard (only if no celebrations to show)
+                        val intent = Intent(this@AddTransactionActivity, DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
                     }
-
-                    Toast.makeText(this@AddTransactionActivity, message, Toast.LENGTH_LONG).show()
-
-                    // Return to dashboard
-                    val intent = Intent(this@AddTransactionActivity, DashboardActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
                 }
 
             } catch (e: Exception) {
@@ -949,5 +958,35 @@ class AddTransactionActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    /**
+     * Shows achievement celebration dialogs sequentially.
+     * If multiple achievements are unlocked, they are shown one after another.
+     *
+     * @param achievements List of newly unlocked achievements to celebrate.
+     */
+    private fun showAchievementCelebrations(achievements: List<Achievement>) {
+        if (achievements.isEmpty()) return
+
+        val achievement = achievements.first()
+        val remaining = achievements.drop(1)
+
+        AchievementCelebrationHelper.showCelebration(
+            context = this,
+            achievement = achievement,
+            enableSound = true
+        ) {
+            // After user dismisses, show next achievement or return to dashboard
+            if (remaining.isNotEmpty()) {
+                showAchievementCelebrations(remaining)
+            } else {
+                // All celebrations shown, now navigate to dashboard
+                val intent = Intent(this@AddTransactionActivity, DashboardActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }
