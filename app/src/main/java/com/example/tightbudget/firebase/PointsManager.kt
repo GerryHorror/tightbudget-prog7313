@@ -67,6 +67,61 @@ class PointsManager {
             "Finance Master",
             "Grandmaster"
         )
+
+        /**
+         * Calculates the user's current level based on their total points accumulated.
+         *
+         * The level is determined by finding the highest threshold the user has exceeded.
+         * This method implements a simple linear search through the thresholds array,
+         * which is acceptable given the small number of levels (10).
+         *
+         * Progression Curve: The thresholds increase exponentially to create a satisfying
+         * progression that remains challenging throughout the user's journey. Early levels
+         * are achievable quickly to provide immediate gratification, whilst later levels
+         * require sustained engagement.
+         *
+         * @param totalPoints The user's cumulative point total.
+         * @return Level number from 1 to [MAX_LEVEL].
+         *
+         * Examples:
+         * - 0 points -> Level 1 (Budget Newbie)
+         * - 500 points -> Level 2 (Penny Tracker)
+         * - 10000 points -> Level 10 (Grandmaster)
+         */
+        fun calculateLevel(totalPoints: Int): Int {
+            return when {
+                totalPoints >= LEVEL_THRESHOLDS[9] -> 10  // Grandmaster
+                totalPoints >= LEVEL_THRESHOLDS[8] -> 9   // Finance Master
+                totalPoints >= LEVEL_THRESHOLDS[7] -> 8   // Savings Specialist
+                totalPoints >= LEVEL_THRESHOLDS[6] -> 7   // Budget Expert
+                totalPoints >= LEVEL_THRESHOLDS[5] -> 6   // Financial Strategist
+                totalPoints >= LEVEL_THRESHOLDS[4] -> 5   // Money Manager
+                totalPoints >= LEVEL_THRESHOLDS[3] -> 4   // Budget Apprentice
+                totalPoints >= LEVEL_THRESHOLDS[2] -> 3   // Smart Spender
+                totalPoints >= LEVEL_THRESHOLDS[1] -> 2   // Penny Tracker
+                else -> 1                                 // Budget Newbie
+            }
+        }
+
+        /**
+         * Retrieves the descriptive title for a given level number.
+         *
+         * Level titles provide meaningful recognition and help users understand their
+         * progression status. They're displayed in profile headers, achievement notifications,
+         * and progression UI elements.
+         *
+         * @param level The level number (1 to [MAX_LEVEL]).
+         * @return The human-readable title for the level (e.g., "Budget Apprentice").
+         *         Returns "Unknown Level" if the level number is invalid.
+         */
+        fun getLevelTitle(level: Int): String {
+            return if (level in 1..MAX_LEVEL) {
+                LEVEL_TITLES[level - 1]
+            } else {
+                Log.w(TAG, "Invalid level requested: $level")
+                "Unknown Level"
+            }
+        }
     }
 
     /**
@@ -96,61 +151,6 @@ class PointsManager {
         val progressPercentage: Int,
         val isMaxLevel: Boolean
     )
-
-    /**
-     * Calculates the user's current level based on their total points accumulated.
-     *
-     * The level is determined by finding the highest threshold the user has exceeded.
-     * This method implements a simple linear search through the thresholds array,
-     * which is acceptable given the small number of levels (10).
-     *
-     * Progression Curve: The thresholds increase exponentially to create a satisfying
-     * progression that remains challenging throughout the user's journey. Early levels
-     * are achievable quickly to provide immediate gratification, whilst later levels
-     * require sustained engagement.
-     *
-     * @param totalPoints The user's cumulative point total.
-     * @return Level number from 1 to [MAX_LEVEL].
-     *
-     * Examples:
-     * - 0 points -> Level 1 (Budget Newbie)
-     * - 500 points -> Level 2 (Penny Tracker)
-     * - 10000 points -> Level 10 (Grandmaster)
-     */
-    fun calculateLevel(totalPoints: Int): Int {
-        return when {
-            totalPoints >= LEVEL_THRESHOLDS[9] -> 10  // Grandmaster
-            totalPoints >= LEVEL_THRESHOLDS[8] -> 9   // Finance Master
-            totalPoints >= LEVEL_THRESHOLDS[7] -> 8   // Savings Specialist
-            totalPoints >= LEVEL_THRESHOLDS[6] -> 7   // Budget Expert
-            totalPoints >= LEVEL_THRESHOLDS[5] -> 6   // Financial Strategist
-            totalPoints >= LEVEL_THRESHOLDS[4] -> 5   // Money Manager
-            totalPoints >= LEVEL_THRESHOLDS[3] -> 4   // Budget Apprentice
-            totalPoints >= LEVEL_THRESHOLDS[2] -> 3   // Smart Spender
-            totalPoints >= LEVEL_THRESHOLDS[1] -> 2   // Penny Tracker
-            else -> 1                                 // Budget Newbie
-        }
-    }
-
-    /**
-     * Retrieves the descriptive title for a given level number.
-     *
-     * Level titles provide meaningful recognition and help users understand their
-     * progression status. They're displayed in profile headers, achievement notifications,
-     * and progression UI elements.
-     *
-     * @param level The level number (1 to [MAX_LEVEL]).
-     * @return The human-readable title for the level (e.g., "Budget Apprentice").
-     *         Returns "Unknown Level" if the level number is invalid.
-     */
-    fun getLevelTitle(level: Int): String {
-        return if (level in 1..MAX_LEVEL) {
-            LEVEL_TITLES[level - 1]
-        } else {
-            Log.w(TAG, "Invalid level requested: $level")
-            "Unknown Level"
-        }
-    }
 
     /**
      * Calculates comprehensive level progression information for display purposes.
