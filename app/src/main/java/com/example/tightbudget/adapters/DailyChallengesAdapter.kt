@@ -1,17 +1,18 @@
 package com.example.tightbudget.adapters
 
-    import android.animation.ObjectAnimator
-    import android.view.LayoutInflater
-    import android.view.View
-    import android.view.ViewGroup
-    import android.widget.ImageView
-    import android.widget.ProgressBar
-    import android.widget.TextView
-    import androidx.core.content.ContextCompat
-    import androidx.recyclerview.widget.RecyclerView
-    import com.example.tightbudget.R
-    import com.example.tightbudget.models.DailyChallenge
-    import com.example.tightbudget.models.ChallengeType
+import android.animation.ObjectAnimator
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tightbudget.R
+import com.example.tightbudget.models.DailyChallenge
+import com.example.tightbudget.models.ChallengeType
+import com.example.tightbudget.utils.IconProvider
 
     /**
      * Adapter for displaying daily challenges in a RecyclerView
@@ -97,17 +98,15 @@ package com.example.tightbudget.adapters
         }
 
         /**
-         * Get emoji for challenge type
+         * Retrieves the emoji icon for a challenge type.
+         * Delegates to IconProvider for centralised icon management,
+         * eliminating hardcoded emoji definitions.
+         *
+         * @param type The challenge type
+         * @return The emoji string representing the challenge type
          */
         private fun getChallengeEmoji(type: ChallengeType): String {
-            return when (type) {
-                ChallengeType.TRANSACTION -> "📝"
-                ChallengeType.RECEIPT -> "📄"
-                ChallengeType.BUDGET_COMPLIANCE -> "💰"
-                ChallengeType.SAVINGS -> "🏦"
-                ChallengeType.STREAK -> "🔥"
-                ChallengeType.CATEGORY_LIMIT -> "🛍️"
-            }
+            return IconProvider.getChallengeIcon(type)
         }
 
         /**

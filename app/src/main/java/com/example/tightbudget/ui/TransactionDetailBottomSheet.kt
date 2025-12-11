@@ -162,14 +162,19 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     /**
-     * Get category emoji from loaded data or fallback
+     * Retrieves the category emoji from loaded data or falls back to centralised IconProvider.
+     * This method first attempts to use the emoji stored in loaded categories,
+     * and falls back to IconProvider's centralised emoji definitions if not found.
+     *
+     * @param categoryName The name of the category
+     * @return The emoji string for the category
      */
     private fun getCategoryEmojiFromData(categoryName: String): String {
         val category = loadedCategories.find { it.name.equals(categoryName, ignoreCase = true) }
         return if (category != null && category.emoji.isNotBlank()) {
             category.emoji // Use real stored emoji
         } else {
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to hardcoded
+            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
     }
 

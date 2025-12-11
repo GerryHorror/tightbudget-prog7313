@@ -107,7 +107,12 @@ class TransactionAdapter(
     }
 
     /**
-     * Gets the emoji for a category using real data or EmojiUtils fallback
+     * Retrieves the emoji icon for a category using real data or IconProvider fallback.
+     * This method first attempts to use the emoji stored in the loaded categories,
+     * and falls back to IconProvider's centralised emoji definitions if not found.
+     *
+     * @param categoryName The name of the category
+     * @return The emoji string for the category
      */
     private fun getCategoryEmojiFromData(categoryName: String): String {
         // First try to find the category in loaded data
@@ -115,15 +120,7 @@ class TransactionAdapter(
         return if (category != null && category.emoji.isNotBlank()) {
             category.emoji // Use real stored emoji
         } else {
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to hardcoded
+            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
-    }
-
-    /**
-     * DEPRECATED: Old method - kept for backwards compatibility
-     * Use getCategoryEmojiFromData instead
-     */
-    private fun getCategoryEmoji(category: String): String {
-        return getCategoryEmojiFromData(category)
     }
 }

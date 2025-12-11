@@ -521,17 +521,21 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     /**
-     * Get category emoji from Firebase data or fallback to EmojiUtils
-     * This method gets the real emoji from stored categories
+     * Retrieves the category emoji from Firebase data or falls back to centralised IconProvider.
+     * This method first attempts to use the emoji stored in Firebase for the category,
+     * and falls back to IconProvider's centralised emoji definitions if not found.
+     *
+     * @param categoryName The name of the category
+     * @return The emoji string for the category
      */
     private fun getCategoryEmojiFromFirebase(categoryName: String): String {
         return try {
             // Check if we have loaded categories with their emojis
             loadedCategories.find { it.name.equals(categoryName, ignoreCase = true) }?.emoji
-                ?: EmojiUtils.getCategoryEmoji(categoryName) // Fallback to hardcoded mapping
+                ?: EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         } catch (e: Exception) {
             Log.e(TAG, "Error getting category emoji: ${e.message}")
-            EmojiUtils.getCategoryEmoji(categoryName) // Fallback
+            EmojiUtils.getCategoryEmoji(categoryName) // Fallback to centralised IconProvider via EmojiUtils
         }
     }
 
